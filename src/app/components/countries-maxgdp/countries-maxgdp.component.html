@@ -1,1 +1,22 @@
-<p>countries-maxgdp works!</p>
+<h3>Countries and their statistics</h3>
+<h4>For each country you see the maximum GDP per population ration and on that year it was maximum</h4>
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>Country Code</th>
+      <th>Year where the GDP was max</th>
+      <th>Population</th>
+      <th>Max GDP for all years</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cs of countryStats">
+      <td>{{cs.name}}</td>
+      <td>{{cs.country_code3}}</td>
+      <td>{{cs.year}}</td>
+      <td>{{cs.population}}</td>
+      <td>{{cs.gdp}}</td>
+    </tr>
+  </tbody>
+</table>

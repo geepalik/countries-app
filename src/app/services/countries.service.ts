@@ -12,6 +12,10 @@ export class CountriesService {
 
   constructor(private http: HttpClient) { }
 
+  getCountriesLanguages(): Observable<ResponseDto>{
+    return this.http.get<ResponseDto>(`${this.apiUrl}/countries-languages`);
+  }
+  
   getCountriesStatsMaxGdp(): Observable<ResponseDto>{
     return this.http.get<ResponseDto>(`${this.apiUrl}/countries-stats-max-gdp`);
   }

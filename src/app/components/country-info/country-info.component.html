@@ -1,0 +1,12 @@
+<p>
+    <span (click)="navigateBackToCountriesList()">Go Back</span>
+</p>
+<div *ngIf="countryInfo.languages && countryInfo.languages.length >0; else emptyList">
+    <h3>The languages that are spoken in {{countryName | titlecase}} are:</h3>
+    <ul>
+        <li *ngFor="let languageData of countryInfo.languages">{{languageData.language}}</li>
+    </ul>    
+</div>
+<ng-template #emptyList>
+    <div>No languages listed for this country</div>
+</ng-template>

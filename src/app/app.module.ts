@@ -9,6 +9,8 @@ import { NonexistingrouteComponent } from './components/nonexistingroute/nonexis
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { CountriesComponent } from './components/countries/countries.component';
+import { CountryInfoComponent } from './components/country-info/country-info.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     HomeComponent,
     CountriesMaxgdpComponent,
     NonexistingrouteComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    CountriesComponent,
+    CountryInfoComponent,
   ],
   imports: [
     BrowserModule,

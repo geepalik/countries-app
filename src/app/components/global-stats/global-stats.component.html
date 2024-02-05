@@ -1,0 +1,27 @@
+<h3>Global stats</h3>
+<form [formGroup]="filterGlobalStatsForm" (ngSubmit)="submit()">
+    <div>
+        <label for="regionSelect">Select a region</label>
+        <select id="regionSelect" formControlName="regionSelect">
+            <option value="" selected="selected">Select region</option>
+            <option *ngFor="let r of regions" value="{{r.region_id}}">{{r.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label for="fromSelect">Select data from year:</label>
+        <select id="fromSelect" formControlName="fromSelect">
+            <option value="" selected="selected">Select year</option>
+            <option *ngFor="let year of getYearList()" value="{{year}}">{{year}}</option>
+        </select>
+    </div>
+    <div>
+        <label for="toSelect">Select data to year:</label>
+        <select id="toSelect" formControlName="toSelect">
+            <option value="" selected="selected">Select year</option>
+            <option *ngFor="let year of getYearList()" value="{{year}}">{{year}}</option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>

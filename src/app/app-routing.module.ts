@@ -5,6 +5,7 @@ import { NonexistingrouteComponent } from './components/nonexistingroute/nonexis
 import { CountriesMaxgdpComponent } from './components/countries-maxgdp/countries-maxgdp.component';
 import { CountriesComponent } from './components/countries/countries.component';
 import { CountryInfoComponent } from './components/country-info/country-info.component';
+import { GlobalStatsComponent } from './components/global-stats/global-stats.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'countries', component: CountriesComponent},
   { path: 'countries/:countryName', component: CountryInfoComponent},
   { path: 'max-gdp', component: CountriesMaxgdpComponent },
+  { path: 'global-stats', component: GlobalStatsComponent },
   { path: '**', component: NonexistingrouteComponent}
 ];
 

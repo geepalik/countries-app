@@ -19,4 +19,8 @@ export class CountriesService {
   getCountriesStatsMaxGdp(): Observable<ResponseDto>{
     return this.http.get<ResponseDto>(`${this.apiUrl}/countries-stats-max-gdp`);
   }
+
+  getRegions(): Observable<ResponseDto> {
+    return this.http.get<ResponseDto>(`${this.apiUrl}/regions`);
+  }
 }

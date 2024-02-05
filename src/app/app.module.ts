@@ -11,6 +11,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { CountriesComponent } from './components/countries/countries.component';
 import { CountryInfoComponent } from './components/country-info/country-info.component';
+import { GlobalStatsComponent } from './components/global-stats/global-stats.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,11 +23,13 @@ import { CountryInfoComponent } from './components/country-info/country-info.com
     SpinnerComponent,
     CountriesComponent,
     CountryInfoComponent,
+    GlobalStatsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

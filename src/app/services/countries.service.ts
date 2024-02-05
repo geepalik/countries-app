@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ResponseDto } from '../dto/ResponseDto';
 import { GlobalStatsRequestDto } from '../dto/GlobalStatsRequestDto';
+import { CountriesResponseDto } from '../dto/CountriesResponseDto';
+import { CountriesStatsMaxGdpResponseDto } from '../dto/CountriesStatsMaxGdpDto';
+import { RegionsResponseDto } from '../dto/RegionsResponseDto';
+import { GlobalStatsResponseDto } from '../dto/GlobalStatsResponseDto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +16,19 @@ export class CountriesService {
 
   constructor(private http: HttpClient) { }
 
-  getCountriesLanguages(): Observable<ResponseDto>{
-    return this.http.get<ResponseDto>(`${this.apiUrl}/countries-languages`);
+  getCountriesLanguages(): Observable<CountriesResponseDto>{
+    return this.http.get<CountriesResponseDto>(`${this.apiUrl}/countries-languages`);
   }
   
-  getCountriesStatsMaxGdp(): Observable<ResponseDto>{
-    return this.http.get<ResponseDto>(`${this.apiUrl}/countries-stats-max-gdp`);
+  getCountriesStatsMaxGdp(): Observable<CountriesStatsMaxGdpResponseDto>{
+    return this.http.get<CountriesStatsMaxGdpResponseDto>(`${this.apiUrl}/countries-stats-max-gdp`);
   }
 
-  getRegions(): Observable<ResponseDto> {
-    return this.http.get<ResponseDto>(`${this.apiUrl}/regions`);
+  getRegions(): Observable<RegionsResponseDto> {
+    return this.http.get<RegionsResponseDto>(`${this.apiUrl}/regions`);
   }
 
-  getGlobalStats(globalStatsRequestDto: GlobalStatsRequestDto): Observable<ResponseDto> {
+  getGlobalStats(globalStatsRequestDto: GlobalStatsRequestDto): Observable<GlobalStatsResponseDto> {
     const {regionId, from, to, page, limit} = globalStatsRequestDto;
     let queryString = `?regionId=${regionId}&from=${from}&to=${to}`;
     if(page){
@@ -34,6 +37,6 @@ export class CountriesService {
     if(limit){
       queryString += `&limit=${limit}`;
     }
-    return this.http.get<ResponseDto>(`${this.apiUrl}/global-stats${queryString}`)
+    return this.http.get<GlobalStatsResponseDto>(`${this.apiUrl}/global-stats${queryString}`)
   }
 }

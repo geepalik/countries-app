@@ -1,12 +1,11 @@
 <h3>Countries List</h3>
 <h4>To see the languages of a country, click on one</h4>
-<ul>
+<ul class="countries-list">
     <li *ngFor="let country of countries">
-        <ul>
-            <li>{{country.name}}</li>
-            <li>{{country.area}}</li>
-            <li>{{country.country_code2}}</li>
-            <li (click)="navigateToCountry(country.name.toLowerCase(), country.languages)">Click here to view more info about this country</li>
+        <ul class="country-container" (click)="navigateToCountry(country.name.toLowerCase(), country.languages)">
+            <li>Name: {{country.name}}</li>
+            <li>Area: {{country.area}}</li>
+            <li>Country Code: {{country.country_code2}}</li>
         </ul>
     </li>
 </ul>

@@ -1,0 +1,12 @@
+ul.countries-list {
+  list-style: none;
+}
+
+ul.country-container {
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+ul.country-container li {
+  list-style: none;
+}

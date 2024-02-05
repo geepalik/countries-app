@@ -1,4 +1,8 @@
 <h3>Global stats</h3>
+<div *ngIf="erroMessage && erroMessage.length > 0">
+    <span>You have the following errors:</span>
+    <span class="error">{{erroMessage}}</span>
+</div>
 <form [formGroup]="filterGlobalStatsForm" (ngSubmit)="submit()">
     <div>
         <label for="regionSelect">Select a region</label>
@@ -25,3 +29,50 @@
         <button type="submit">Submit</button>
     </div>
 </form>
+<div *ngIf="globalStats && globalStats.length > 0; else emptyList">
+    <div>
+        <div class="table-container">
+            <div class="table-header">
+              <div>Continent</div>
+              <div>Region</div>
+              <div>Country</div>
+              <div>Year</div>
+              <div>Population</div>
+              <div>GDP</div>
+            </div>
+          
+            <div class="table-body">
+              <div *ngFor="let item of globalStats" class="table-row">
+                <div>{{ item.continentName }}</div>
+                <div>{{ item.regionName }}</div>
+                <div>{{ item.countryName }}</div>
+                <div>{{ item.countryStatsYear }}</div>
+                <div>{{ item.countryStatsPopulation }}</div>
+                <div>{{ item.countryStatsGdp }}</div>
+              </div>
+            </div>
+          </div>
+          
+    </div>
+    <div>
+        <div>
+            <span>Page {{currentPage}} of {{totalPages}}</span>
+        </div>
+
+        <ng-container *ngFor="let page of getPagesList()">
+            <span class="page-container" *ngIf="page === currentPage; else clickablePage">{{page}}</span>
+            <ng-template #clickablePage>
+                <span class="clickable page-container" (click)="goToPage(page)">
+                    {{page}}
+                </span>
+            </ng-template>
+        </ng-container>
+    </div>
+</div>
+<ng-template #emptyList>
+    <div>No global stats found for the input you provided</div>
+</ng-template>
+<div *ngIf="erroMessage && erroMessage.length > 0">
+    <span>You have the following errors:</span>
+    <span class="error">{{erroMessage}}</span>
+</div>

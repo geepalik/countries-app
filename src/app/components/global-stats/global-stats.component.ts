@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Region } from '../../models/Region';
 import { CountriesService } from '../../services/countries.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { GlobalStatsRequestDto } from '../../dto/GlobalStatsRequestDto';
+import { GlobalStats } from '../../models/GlobalStats';
 
 @Component({
   selector: 'app-global-stats',
@@ -10,11 +12,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class GlobalStatsComponent {
   regions: Region[] | undefined;
+  globalStats: GlobalStats[] | undefined;
+  currentPage: number | undefined = 1;
+  totalPages: number | undefined = 1;
   filterGlobalStatsForm: FormGroup = this.fb.group({
     regionSelect: [''],
     fromSelect: [''],
     toSelect: [''],
   })
+  erroMessage: string | undefined;
 
   constructor(
     private countriesService: CountriesService,
@@ -22,10 +28,48 @@ export class GlobalStatsComponent {
   ) { }
 
   submit() {
+    this.erroMessage = "";
+    if(!this.validateForm()){
+      this.erroMessage = "You must select one option from each form field";
+    }else{
+      const regionSelectControl = this.filterGlobalStatsForm.get('regionSelect');
+      const fromSelectControl = this.filterGlobalStatsForm.get('fromSelect');
+      const toSelectControl = this.filterGlobalStatsForm.get('toSelect');
+  
+      const globalStatsRequestDto: GlobalStatsRequestDto = {
+        regionId: regionSelectControl?.value,
+        from: fromSelectControl?.value,
+        to: toSelectControl?.value,
+      }
+  
+      this.getGlobalStats(globalStatsRequestDto);
+    }
+  }
+
+  validateForm(){
     const regionSelectControl = this.filterGlobalStatsForm.get('regionSelect');
     const fromSelectControl = this.filterGlobalStatsForm.get('fromSelect');
     const toSelectControl = this.filterGlobalStatsForm.get('toSelect');
-    console.log(regionSelectControl?.value, fromSelectControl?.value, toSelectControl?.value);
+
+    return regionSelectControl?.value !== "" || 
+    fromSelectControl?.value !== "" || 
+    toSelectControl?.value !== "";
+  }
+
+  goToPage(page: number): void {
+    this.erroMessage = "";
+    this.currentPage = page;
+    const regionSelectControl = this.filterGlobalStatsForm.get('regionSelect');
+    const fromSelectControl = this.filterGlobalStatsForm.get('fromSelect');
+    const toSelectControl = this.filterGlobalStatsForm.get('toSelect');
+
+    const globalStatsRequestDto: GlobalStatsRequestDto = {
+      regionId: regionSelectControl?.value,
+      from: fromSelectControl?.value,
+      to: toSelectControl?.value,
+      page
+    }
+    this.getGlobalStats(globalStatsRequestDto);
   }
 
   getYearList(): number[] {
@@ -36,6 +80,10 @@ export class GlobalStatsComponent {
     return 1960;
   }
 
+  getPagesList(): number[] {
+    return Array.from({ length: this.totalPages } as unknown as Iterable<number>, (_, index) => index + 1);
+  }
+
   ngOnInit() {
     const storedRegions = localStorage.getItem('regionList');
 
@@ -43,12 +91,29 @@ export class GlobalStatsComponent {
       this.regions = JSON.parse(storedRegions);
     }else {
       this.countriesService.getRegions()
-      .subscribe(
-        (response) => {
+      .subscribe({
+        next: (response) => {
           this.regions = response.data.regions;
           localStorage.setItem('regionList', JSON.stringify(response.data.regions));
+        },
+        error: (error) => {
+          this.erroMessage = error.error.errors.join(' , ');
         }
-      )
+      })
     }
+  }
+
+  private getGlobalStats(globStatsRequestDto: GlobalStatsRequestDto) {
+    this.countriesService.getGlobalStats(globStatsRequestDto)
+    .subscribe({
+      next: (response) => {
+        this.globalStats = response.data.globalStats;
+        this.currentPage = response.data.currentPage;
+        this.totalPages = response.data.totalPages;
+      },
+      error: (error) => {
+        this.erroMessage = error.error.errors.join(' , ');
+      }
+    })
   }
 }

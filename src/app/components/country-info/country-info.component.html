@@ -1,5 +1,5 @@
 <p>
-    <span (click)="navigateBackToCountriesList()">Go Back</span>
+    <span class="clickable" (click)="navigateBackToCountriesList()">Go Back</span>
 </p>
 <div *ngIf="countryInfo.languages && countryInfo.languages.length >0; else emptyList">
     <h3>The languages that are spoken in {{countryName | titlecase}} are:</h3>

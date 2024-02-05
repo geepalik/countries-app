@@ -1,0 +1,25 @@
+.table-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+  }
+  
+  .table-header,
+  .table-row {
+    display: flex;
+  }
+  
+  .table-header {
+    font-weight: bold;
+  }
+  
+  .table-row {
+    border-top: 1px solid #ddd;
+  }
+  
+  .table-header > div,
+  .table-row > div {
+    flex: 1;
+    padding: 8px;
+    text-align: left;
+  }
